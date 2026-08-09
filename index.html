@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Vibe Check — ATS Scan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="stickers">⚡💠🌐</div>
+    <h1>RESUME VIBE CHECK</h1>
+    <p>Upload your resume, see if it survives the ATS scan.</p>
+    <span class="scan-id" id="fileNo">SCAN #----</span>
+  </div>
+
+  <div class="folder">
+    <div class="tabs">
+      <button class="tab-btn active" data-mode="role">PICK A ROLE</button>
+      <button class="tab-btn" data-mode="jd">PASTE THE JD</button>
+    </div>
+    <div class="panel">
+
+      <div class="mode-pane active" id="pane-role">
+        <label class="field-label" for="roleSelect">Target role</label>
+        <select id="roleSelect">
+          <option value="">Pick a role…</option>
+        </select>
+      </div>
+
+      <div class="mode-pane" id="pane-jd">
+        <label class="field-label" for="jdText">Paste the job description</label>
+        <textarea id="jdText" placeholder="Paste the full job posting — responsibilities, requirements, all of it."></textarea>
+      </div>
+
+      <hr class="divider">
+
+      <label class="field-label">Resume file</label>
+      <div class="dropzone" id="dropzone">
+        <strong>DROP YOUR RESUME</strong>
+        <p>or tap to browse — PDF or DOCX only</p>
+      </div>
+      <input type="file" id="fileInput" accept=".pdf,.docx">
+      <div class="file-chip" id="fileChip">
+        <span id="fileName"></span>
+        <button id="fileRemove" title="Remove file">×</button>
+      </div>
+      <div class="err" id="fileErr"></div>
+
+      <div class="scan-overlay" id="scanOverlay">
+        <div class="scan-doc"><div class="scan-beam"></div><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="scan-status" id="scanStatus">Reading your resume…</div>
+      </div>
+
+      <div class="run-row">
+        <button class="run-btn" id="runBtn" disabled>RUN THE CHECK →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="results" id="results">
+    <div class="panel">
+      <div class="stamp-row" id="stampRow">
+        <div class="stamp" id="stamp">
+          <span class="verdict" id="verdictText">—</span>
+          <span class="score" id="scoreText">— / 100</span>
+        </div>
+      </div>
+
+      <div class="bars">
+        <div class="bar-row">
+          <span class="bar-label">KEYWORD MATCH</span>
+          <div class="bar-track"><div class="bar-fill" id="barKeyword"></div></div>
+          <span class="bar-pct" id="pctKeyword">0%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">FORMAT CHECK</span>
+          <div class="bar-track"><div class="bar-fill" id="barStructure"></div></div>
+          <span class="bar-pct" id="pctStructure">0%</span>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <p class="col-title">Keywords you nailed</p>
+          <div class="tags" id="tagsFound"></div>
+        </div>
+        <div>
+          <p class="col-title">Keywords to add</p>
+          <div class="tags" id="tagsMissing"></div>
+        </div>
+      </div>
+
+      <p class="col-title">The format check</p>
+      <ul class="checklist" id="checklist"></ul>
+
+      <div class="reset-row">
+        <button class="reset-btn" id="resetBtn">SCAN ANOTHER ONE</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="footnote">Runs entirely in your browser on public resume-parsing libraries. Nothing gets uploaded or saved anywhere.</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
